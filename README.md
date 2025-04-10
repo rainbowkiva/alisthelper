@@ -5,6 +5,8 @@
 其中rclone挂载本地磁盘利用的是AList提供的webdav功能，比如百度网盘自身不提供webdav功能，所以利用AList挂在百度网盘接口，再利用AList自身的webdav接口从而产生百度网盘webdav的效果；
 
 因为百度网盘的限制，大于20M的文件需要User Agent，否则网页端观看视频和下载文件会报错{"error_code":31362,"error_msg":"sign error","error_info":"","request_id":3389658821914890461}，同时这也是rclone挂在本地磁盘后报错的信息，所以与rclone无关，是因为AList挂载百度网盘的限制所导致的，这个时候需要在AList中设置webdav为本地代理，就可以正常使用rclone了；
+更正：使用cmd命令行来rclone mount的话，添加--header "Referer:https://pan.baidu.com/"  --header "User-Agent:pan.baidu.com"参数后，不需要在AList中设置webdav为本地代理而是默认的重定向302也可以正常使用了，所以应该是AListHelper自身的bug，导致我在软件中设置该参数无法正确识别并运行，所以只能在AList中设置webdav为本地代理。
+关于在AList中设置webdav为本地代理还是默认的重定向302，可以参考AList官方文档中的说明，重定向302性能损失较小，但每种网盘都需要设置对应的header；本地代理则使用搭建AList机器的本身带宽（其实影响不大）。
 
 而AList本身使用百度网盘，则需要在网页端修改User Agent（麻烦），或者下载时对下载器单独设置User Agent（复制下载链接后用下载器下载就不会报错，同时使用网盘用户的自身速度），需要注意的是，User Agent在正常使用时需修改回来，否则正常资源会因为识别错误而无法下载。
 
