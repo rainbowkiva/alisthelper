@@ -1,5 +1,13 @@
 # alisthelper
 
+说明：AListHelper是为AList提供GUI界面的开源工具，具体的配置教程还是要参考AList和rclone的说明：
+
+其中rclone挂载本地磁盘利用的是AList提供的webdav功能，比如百度网盘自身不提供webdav功能，所以利用AList挂在百度网盘接口，再利用AList自身的webdav接口从而产生百度网盘webdav的效果；
+
+因为百度网盘的限制，大于20M的文件需要User Agent，否则网页端观看视频和下载文件会报错{"error_code":31362,"error_msg":"sign error","error_info":"","request_id":3389658821914890461}，同时这也是rclone挂在本地磁盘后报错的信息，所以与rclone无关，是因为AList挂载百度网盘的限制所导致的，这个时候需要在AList中设置webdav为本地代理，就可以正常使用rclone了；
+
+而AList本身使用百度网盘，则需要在网页端修改User Agent（麻烦），或者下载时对下载器单独设置User Agent（复制下载链接后用下载器下载就不会报错，同时使用网盘用户的自身速度），需要注意的是，User Agent在正常使用时需修改回来，否则正常资源会因为识别错误而无法下载。
+
 <p align="center">
   <img src="https://github.com/Xmarmalade/alisthelper/assets/16839488/2067509c-756e-48cd-8f20-5ea961f46ef7" width="100" height="100">
 </p>
